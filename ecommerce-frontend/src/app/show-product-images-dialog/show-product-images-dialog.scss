@@ -1,0 +1,207 @@
+
+.product-images-grid {
+  & {
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  /* Grid list container styling */
+  mat-grid-list {
+
+    & {
+      width: 100%;
+      border-radius: var(--mat-sys-shape-corner-medium);
+      overflow: hidden;
+      background-color: var(--mat-sys-surface-container);
+      box-shadow: var(--mat-elevation-shadow-1);
+    }
+
+    /* Grid tile styling */
+    mat-grid-tile {
+
+      & {
+        padding: 8px;
+        transition: all 0.2s ease;
+
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: var(--mat-elevation-shadow-2);
+        }
+      }
+
+      .mat-grid-tile-content {
+        /* FIX: Wrap declarations in & {} to fix Mixed Declarations warning */
+        & {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 4px;
+          border-radius: var(--mat-sys-shape-corner-small);
+          background-color: var(--mat-sys-surface);
+        }
+      }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      & {
+        ::ng-deep {
+          .mat-grid-list {
+            padding: 6px;
+          }
+
+          .mat-grid-tile .mat-grid-tile-content {
+            padding: 2px;
+          }
+        }
+      }
+    }
+
+    @media (max-width: 480px) {
+      & {
+        cols: 2;
+
+        ::ng-deep {
+          .mat-grid-list {
+            padding: 4px;
+          }
+
+          .mat-grid-tile {
+            height: 120px !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Image styling */
+.image-container {
+
+  & {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-radius: var(--mat-sys-shape-corner-small);
+  }
+
+  img {
+    & {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: var(--mat-sys-shape-corner-small);
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+  }
+}
+
+/* Empty state styling */
+.empty-state {
+  & {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    min-height: 200px;
+    text-align: center;
+    background-color: var(--mat-sys-surface-container);
+    border-radius: var(--mat-sys-shape-corner-medium);
+    border: 2px dashed var(--mat-sys-outline-variant);
+
+    .placeholder-icon {
+      & {
+        font-size: 48px;
+        color: var(--mat-sys-on-surface-variant);
+        margin-bottom: 12px;
+      }
+    }
+
+    p {
+      & {
+        color: var(--mat-sys-on-surface-variant);
+        font-size: 16px;
+        margin: 0;
+      }
+    }
+  }
+}
+
+/* Loading state */
+.loading-state {
+  /* FIX: Wrap declarations in & {} to fix Mixed Declarations warning */
+  & {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+
+    .spinner {
+      & {
+        width: 32px;
+        height: 32px;
+        border: 3px solid var(--mat-sys-outline-variant);
+        border-top: 3px solid var(--mat-sys-primary);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+    }
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Image actions (if needed later) */
+.image-actions {
+  /* FIX: Wrap declarations in & {} to fix Mixed Declarations warning */
+  & {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: flex;
+    gap: 4px;
+
+    button {
+      & {
+        width: 32px;
+        height: 32px;
+        min-width: 32px;
+        min-height: 32px;
+        padding: 4px;
+        border-radius: var(--mat-sys-shape-corner-full);
+        background-color: var(--mat-sys-surface-container);
+        color: var(--mat-sys-on-surface-variant);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+        &:hover {
+          background-color: var(--mat-sys-surface-container-highest);
+          color: var(--mat-sys-on-surface);
+        }
+
+        &:first-child {
+          & {
+            color: var(--mat-sys-primary);
+          }
+        }
+
+        &:last-child {
+          & {
+            color: var(--mat-sys-error);
+          }
+        }
+      }
+    }
+  }
+}

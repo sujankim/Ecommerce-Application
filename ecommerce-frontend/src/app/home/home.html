@@ -1,0 +1,52 @@
+<div class="home-container">
+  @if(isLoading) {
+    <div class="loading-state">
+      <mat-spinner diameter="40"></mat-spinner>
+      <p>Loading products...</p>
+    </div>
+  } @else {
+    <mat-grid-list cols="4" rowHeight="3:5" gutterSize="16">
+      @for(product of productDetails; track product.productId){
+        <mat-grid-tile>
+          <div class="product-card">
+            <div class="image-wrapper">
+              @if(product.productImages.length > 0 && product.productImages[0].urlString){
+                <img
+                  [src]="product.productImages[0].urlString"
+                  alt="{{ product.productName }}"
+                  class="product-image"
+                  (error)="onImageError($event)">
+              } @else {
+                <div class="no-image">
+                  <mat-icon>image_not_supported</mat-icon>
+                  <span>No Image</span>
+                </div>
+              }
+            </div>
+
+            <div class="product-info">
+              <h3 class="product-name">{{ product.productName }}</h3>
+              <p class="product-description">{{ product.productDescription }}</p>
+
+              <div class="product-price">
+                <span class="discounted-price">Rs. {{ product.productDiscountedPrice }}</span>
+                <span class="original-price">Rs. {{ product.productActualPrice }}</span>
+              </div>
+
+              <div class="product-actions">
+                <button mat-raised-button class="view-details-btn" (click)="showProductDetails(product.productId)">
+                  View Details
+                </button>
+              </div>
+            </div>
+          </div>
+        </mat-grid-tile>
+      } @empty {
+        <div class="empty-state">
+          <mat-icon>inventory_2</mat-icon>
+          <p>No products available</p>
+        </div>
+      }
+    </mat-grid-list>
+  }
+</div>

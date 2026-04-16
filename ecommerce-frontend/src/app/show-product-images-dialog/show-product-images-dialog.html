@@ -1,0 +1,7 @@
+<mat-grid-list cols="4" rowHeight="1:1">
+  @for(fileHandle of data.images; track fileHandle){
+    <mat-grid-tile>
+      <img [src]="fileHandle.url" alt="ProductDetailImages" width="150px" height="150px">
+    </mat-grid-tile>
+  }
+</mat-grid-list>

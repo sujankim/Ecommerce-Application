@@ -1,0 +1,133 @@
+<div class="add-new-product-container">
+  <mat-card class="add-new-product-card">
+    <div class="form-container">
+      <form #productForm="ngForm" (ngSubmit)="addProduct(productForm)">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Product Name</mat-label>
+          <input matInput
+                 placeholder="Product Name"
+                 [(ngModel)]="product.productName"
+                 name="productName">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Product Description</mat-label>
+          <input matInput
+                 placeholder="Product Description"
+                 [(ngModel)]="product.productDescription"
+                 name="productDescription">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Product Discounted Price</mat-label>
+          <input matInput
+                 type="number"
+                 step="0.01"
+                 min="0"
+                 placeholder="Product Discounted Price"
+                 [(ngModel)]="product.productDiscountedPrice"
+                 name="productDiscountedPrice">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Product Actual Price</mat-label>
+          <input matInput
+                 type="number"
+                 step="0.01"
+                 min="0"
+                 placeholder="Product Actual Price"
+                 [(ngModel)]="product.productActualPrice"
+                 name="productActualPrice">
+        </mat-form-field>
+
+        <div class="button-group">
+          <button type="button" mat-stroked-button (click)="clearForm(productForm)">
+            Clear
+          </button>
+
+          @if(isNewProduct){
+            <button type="submit" mat-stroked-button>
+              Add New Product
+            </button>
+          }
+
+          @if (!isNewProduct) {
+            <button type="submit" mat-stroked-button>
+              Update Product
+            </button>
+          }
+
+        </div>
+      </form>
+    </div>
+
+    <div class="image-container">
+      <div class="product-image-placeholder">
+        <div class="dropzone"
+             appDrag
+             (files)="fileDropped($event)">
+          <div class="text-wrapper">
+            <div class="centered">
+              Drag and drop your file or
+              <a (click)="selectFile.click()" class="browse-button">browse</a>
+              a file
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <input type="file"
+                 multiple
+                 accept="image/*"
+                 style="display: none"
+                 #selectFile
+                 (change)="onFileSelected($event)">
+        </div>
+
+        <div>
+          @if (product.productImages.length > 0) {
+            <mat-grid-list cols="4" rowHeight="1:1">
+              @for(file of product.productImages; track file; let i=$index){
+                <mat-grid-tile>
+                  <div class="image-container-tile">
+                    <span class="btn-remove-image" (click)="removeImage(i)">
+                      ×
+                    </span>
+                    <img [src]="file.urlString"
+                         alt="Product preview"
+                         class="preview-image">
+                  </div>
+                </mat-grid-tile>
+              }
+            </mat-grid-list>
+
+            <!-- Alternative: Flexbox layout with modern control flow -->
+              <!--
+              @if (product.productImages.length > 0) {
+                <div class="images-flex-container">
+                  @for(file of product.productImages; track file; let i=$index){
+                    <div class="image-wrapper">
+                      <span class="btn-remove-image" (click)="removeImage(i)">×</span>
+                      <img [src]="file.urlString"
+                           alt="Product preview"
+                           class="preview-image">
+                    </div>
+                  }
+                </div>
+              } @else {
+                <div class="no-images-message">
+                  <p>No images uploaded yet</p>
+                </div>
+              }
+              -->
+
+          } @else {
+            <div class="no-images-placeholder">
+              <p>Upload images to see preview</p>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </mat-card>
+</div>

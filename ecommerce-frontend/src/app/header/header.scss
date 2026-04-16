@@ -1,0 +1,143 @@
+@use '@angular/material' as mat;
+
+// Toolbar styling
+mat-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding: 0 16px;
+  background-color: var(--mat-sys-primary);
+  color: var(--mat-sys-on-primary);
+
+  .toolbar-container {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+
+    .brand-text {
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 1.2rem;
+      margin-right: 1rem;
+      color: var(--mat-sys-on-primary);
+    }
+
+    .desktop-nav {
+      display: flex;
+      gap: 0.5rem;
+
+      a {
+        color: var(--mat-sys-on-primary);
+
+        &.active-link {
+          background-color: rgba(255, 255, 255, 0.1);
+          border-radius: 4px;
+        }
+      }
+    }
+
+    .auth-buttons {
+      display: flex;
+      gap: 0.5rem;
+
+      button {
+        color: var(--mat-sys-on-primary);
+
+        mat-icon {
+          margin-right: 0.5rem;
+        }
+      }
+    }
+
+    .menu-button {
+      display: none;
+      color: var(--mat-sys-on-primary);
+    }
+  }
+}
+
+// Sidenav container styling
+mat-sidenav-container {
+  position: absolute;
+  top: 64px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: block;
+
+  mat-sidenav {
+    width: 250px;
+    padding: 16px;
+    background-color: var(--mat-sys-surface);
+    color: var(--mat-sys-on-surface);
+
+    mat-nav-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      a {
+        color: var(--mat-sys-on-surface);
+        border-radius: 4px;
+        margin-bottom: 4px;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+          background-color: var(--mat-sys-primary-container);
+          color: var(--mat-sys-on-primary-container);
+        }
+
+        &.active-link {
+          background-color: var(--mat-sys-primary);
+          color: var(--mat-sys-on-primary);
+        }
+
+        mat-icon {
+          margin-right: 0.5rem;
+        }
+      }
+    }
+  }
+}
+
+// Responsive styles
+@media (max-width: 768px) {
+  mat-toolbar {
+    .toolbar-container {
+      .desktop-nav {
+        display: none;
+      }
+
+      .auth-buttons {
+        display: none;
+      }
+
+      .menu-button {
+        display: block;
+      }
+    }
+  }
+/*
+  mat-sidenav-container {
+    display: block;
+  }*/
+}
+
+// Additional theming for specific elements
+.mat-elevation-z4 {
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2),
+  0 4px 5px 0 rgba(0, 0, 0, 0.14),
+  0 1px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+// Animation for sidenav
+mat-sidenav {
+  transition: transform 0.3s ease;
+}
+
+// Focus states for accessibility
+a:focus, button:focus {
+  outline: 2px solid var(--mat-sys-primary);
+  outline-offset: 2px;
+}

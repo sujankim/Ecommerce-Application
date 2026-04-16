@@ -1,0 +1,82 @@
+/* login.component.scss */
+
+.login-container {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+  @media (max-width: 599px) {
+    margin-top: 24px;
+    padding: 0 16px;
+  }
+}
+
+.login-card {
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+  padding: 24px;
+  width: 100%;
+  max-width: 400px;
+  border-radius: var(--mat-sys-shape-corner-medium);
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+
+.full-width {
+  width: 100%;
+}
+
+.submit-button {
+  margin-top: 8px;
+  height: 40px;
+  font-weight: 500;
+  text-transform: none;
+  transition: background-color 0.2s ease-in-out;
+
+
+  background-color: var(--mat-sys-primary);
+  color: var(--mat-sys-on-primary);
+
+  /* Custom hover effect - darken the primary color by 12% */
+  &:hover {
+    background-color: color-mix(in srgb, var(--mat-sys-primary), black 12%);
+    color: var(--mat-sys-on-primary);
+  }
+
+  /* Active state for better feedback */
+  &:active {
+    background-color: color-mix(in srgb, var(--mat-sys-primary), black 20%);
+  }
+}
+
+/* Form field styling */
+mat-form-field {
+  .mat-mdc-form-field-focus-overlay {
+    background-color: var(--mat-sys-primary);
+  }
+
+  .mat-mdc-form-field-infix {
+    padding: 0.75rem 0 !important;
+  }
+
+  .mat-mdc-form-field-label {
+    color: var(--mat-sys-on-surface-variant);
+  }
+
+  .mat-mdc-form-field-required-marker {
+    color: var(--mat-sys-error);
+  }
+
+  .mat-mdc-form-field-underline {
+    background-color: var(--mat-sys-outline-variant);
+  }
+
+  .mat-mdc-form-field-underline::after {
+    background-color: var(--mat-sys-primary);
+  }
+}

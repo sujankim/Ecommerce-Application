@@ -1,0 +1,55 @@
+<div class="product-view-container">
+  <div class="product-layout">
+
+    <!-- 🔹 Image Gallery -->
+    <section class="image-section">
+      <div class="main-image-wrapper">
+        @if(product.productImages.length > 0) {
+          <img [src]="product.productImages[selectedImageIndex].urlString"
+               [alt]="product.productName"
+               class="main-image">
+        } @else {
+          <div class="no-image-placeholder">
+            <span>No Image Available</span>
+          </div>
+        }
+      </div>
+
+      @if(product.productId) {
+        <div class="actions">
+          <button mat-flat-button class="action-btn buy-btn" (click)="buyProduct(product.productId)">
+            Buy Now
+          </button>
+          <button mat-stroked-button class="action-btn cart-btn" (click)="addToCart(product.productId)">
+            Add to Cart
+          </button>
+        </div>
+      } @else {
+        <p class="error-text">Invalid product state. ID missing.</p>
+      }
+    </section>
+
+    <!-- 🔹 Product Information -->
+    <section class="info-section">
+      <h1 class="product-name">{{ product.productName }}</h1>
+      <mat-divider></mat-divider>
+
+      <p class="product-description">{{ product.productDescription }}</p>
+
+      <div class="pricing">
+        <span class="discounted-price">Rs. {{ product.productDiscountedPrice }}</span>
+        <span class="original-price">Rs. {{ product.productActualPrice }}</span>
+      </div>
+
+      <div class="actions">
+        <button mat-flat-button class="action-btn buy-btn" (click)="buyProduct(product.productId)">
+          Buy Now
+        </button>
+        <button mat-stroked-button class="action-btn cart-btn" (click)="addToCart(product.productId)">
+          Add to Cart
+        </button>
+      </div>
+    </section>
+
+  </div>
+</div>
