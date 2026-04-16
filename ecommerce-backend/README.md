@@ -1,1 +1,1 @@
-# Jwt-Backend Template
+# Ecommerce Application Backend
