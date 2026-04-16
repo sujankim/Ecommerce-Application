@@ -136,8 +136,6 @@ The application showcases:
 
 \### ▶️ Run Frontend
 
-
-
 ```bash
 
 cd frontend
@@ -145,7 +143,7 @@ cd frontend
 npm install
 
 ng serve
-
+```
 
 
 App will run at: http://localhost:4200
@@ -154,11 +152,12 @@ App will run at: http://localhost:4200
 
 ▶️ Run Backend
 
+```bash
 cd backend
 
 ./mvnw spring-boot:run
 
-
+```
 
 Backend runs at: http://localhost:9090
 
