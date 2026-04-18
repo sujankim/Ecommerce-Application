@@ -1,8 +1,9 @@
 import {inject, Injectable, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {ProductModel} from '../model/product.model';
+import {ProductModel} from '../_model/product.model';
 import {map, Observable} from 'rxjs';
 import {ImageProcessingService} from './image-processing';
+import {OrderDetailsModel} from '../_model/order-detail.model';
 
 @Injectable({
   providedIn: 'root'
@@ -45,6 +46,16 @@ export class ProductService{
 
   public deleteProduct(productId: string | number): Observable<void> {
     return this.httpClient.delete<void>(`${this.baseUrl}/api/products/${productId}`);
+  }
+
+  public getProductDetails(isSingleProductCheckout: boolean, productId: String): Observable<ProductModel[]> {
+    return this.httpClient.get<ProductModel[]>(
+      `${this.baseUrl}/api/products/getProductDetails/${isSingleProductCheckout}/${productId}`
+    );
+  }
+
+  public placeOrder(orderDetails: OrderDetailsModel){
+    return this.httpClient.post(`${this.baseUrl}/api/placeOrder`, orderDetails, {responseType: 'text'});
   }
 
 }

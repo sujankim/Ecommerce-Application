@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -28,7 +29,24 @@ public class ProductService {
     }
 
 
-    public void deleteProductDetails(@PathVariable("productId") Integer productId){
+    public void deleteProductDetails(@PathVariable Integer productId){
         productRepository.deleteById(productId);
+    }
+
+    public List<Product> getProductDetails(boolean isSingleProductCheckout,
+                                           Integer productId) {
+        if(isSingleProductCheckout){
+            //we are going to buy single product
+
+            List<Product> list = new ArrayList<>();
+            Product product = productRepository.findById(productId)
+                    .orElseThrow(() -> new RuntimeException("Product not found with ID: " + productId));
+            list.add(product);
+            return list;
+        }else{
+            //we are going to checkout entire cart
+        }
+
+        return new ArrayList<>();
     }
 }

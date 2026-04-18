@@ -5,27 +5,27 @@
     <section class="image-section">
       <div class="main-image-wrapper">
         @if(product.productImages.length > 0) {
-          <img [src]="product.productImages[selectedImageIndex].urlString"
-               [alt]="product.productName"
-               class="main-image">
+          <img
+            [src]="product.productImages[selectedImageIndex].urlString"
+            [alt]="product.productName"
+            class="main-image"
+            (click)="openImageZoom()">
         } @else {
-          <div class="no-image-placeholder">
-            <span>No Image Available</span>
-          </div>
+          <div class="no-image-placeholder">No Image Available</div>
         }
       </div>
 
-      @if(product.productId) {
-        <div class="actions">
-          <button mat-flat-button class="action-btn buy-btn" (click)="buyProduct(product.productId)">
-            Buy Now
-          </button>
-          <button mat-stroked-button class="action-btn cart-btn" (click)="addToCart(product.productId)">
-            Add to Cart
-          </button>
-        </div>
-      } @else {
-        <p class="error-text">Invalid product state. ID missing.</p>
+      @if(product.productImages.length > 1) {
+        <mat-grid-list cols="4" gutterSize="12" rowHeight="1:1" class="thumbnail-grid">
+          @for(img of product.productImages; track img.urlString; let i = $index) {
+            <mat-grid-tile
+              (click)="selectImage(i)"
+              [class.active]="selectedImageIndex === i"
+              class="thumbnail-tile">
+              <img [src]="img.urlString" [alt]="'Thumbnail ' + (i + 1)">
+            </mat-grid-tile>
+          }
+        </mat-grid-list>
       }
     </section>
 
@@ -53,3 +53,18 @@
 
   </div>
 </div>
+
+<!-- 🔹 Inline Zoom Overlay -->
+@if(isZoomOpen) {
+  <div class="image-zoom-overlay" (click)="closeImageZoom()">
+    <div class="zoom-content" (click)="$event.stopPropagation()">
+      <button mat-icon-button class="close-btn" (click)="closeImageZoom()" aria-label="Close zoom">
+        <mat-icon>close</mat-icon>
+      </button>
+      <img
+        [src]="product.productImages[selectedImageIndex].urlString"
+        [alt]="product.productName"
+        class="zoomed-image">
+    </div>
+  </div>
+}

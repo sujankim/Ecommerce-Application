@@ -1,0 +1,89 @@
+<div class="buy-product-container">
+  <div class="buy-product-card">
+
+    <div class="form-section">
+      <h2 class="section-title">Shipping Details</h2>
+      <mat-divider></mat-divider>
+
+      <form #orderForm="ngForm" (ngSubmit)="placeOrder(orderForm)" class="order-form">
+
+        <!-- Full Name -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Full Name <span class="required">*</span></mat-label>
+          <input matInput
+                 placeholder="John Doe"
+                 [(ngModel)]="orderDetails.fullName"
+                 name="fullName"
+                 required
+                 #fullName="ngModel">
+          @if(fullName.touched && fullName.invalid) {
+            <mat-error>Full name is required</mat-error>
+          }
+        </mat-form-field>
+
+        <!-- Full Address -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Full Address <span class="required">*</span></mat-label>
+          <input matInput
+                 placeholder="123 Main St, City, Country"
+                 [(ngModel)]="orderDetails.fullAddress"
+                 name="fullAddress"
+                 required
+                 #fullAddress="ngModel">
+          @if(fullAddress.touched && fullAddress.invalid) {
+            <mat-error>Address is required</mat-error>
+          }
+        </mat-form-field>
+
+        <!-- Contact Number -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Contact Number <span class="required">*</span></mat-label>
+          <input matInput
+                 type="tel"
+                 placeholder="98XXXXXXXX"
+                 [(ngModel)]="orderDetails.contactNumber"
+                 name="contactNumber"
+                 required
+                 pattern="^[0-9]{10}$"
+                 #contact="ngModel">
+          @if(contact.touched && contact.invalid) {
+            <mat-error>Valid 10-digit number required</mat-error>
+          }
+        </mat-form-field>
+
+        <!-- Alternate Contact -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Alternate Contact Number</mat-label>
+          <input matInput
+                 type="tel"
+                 placeholder="98XXXXXXXX"
+                 [(ngModel)]="orderDetails.alternateContactNumber"
+                 name="alternateContactNumber"
+                 pattern="^[0-9]{10}$">
+        </mat-form-field>
+
+        <!-- Submit Button -->
+        <div class="form-actions">
+          <!--<button mat-flat-button
+                  type="submit"
+                  class="submit-btn"
+                  [disabled]="orderForm.invalid || isSubmitting">
+            @if(isSubmitting) {
+              <mat-spinner diameter="20"></mat-spinner>
+              Processing...
+            } @else {
+              Place Order
+            }
+          Place Order
+          </button>-->
+          <button mat-flat-button
+            type="submit"
+            class="submit-btn">
+            Place Order
+          </button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>

@@ -9,7 +9,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Router } from '@angular/router';
 import { ProductService } from '../_services/product';
 import { ShowProductImagesDialog } from '../show-product-images-dialog/show-product-images-dialog';
-import { ProductModel } from '../model/product.model';
+import { ProductModel } from '../_model/product.model';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({

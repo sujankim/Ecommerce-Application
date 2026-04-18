@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import {ActivatedRouteSnapshot, MaybeAsync, RedirectCommand, Resolve, RouterStateSnapshot} from '@angular/router';
-import { ProductModel } from '../model/product.model';
+import { ProductModel } from '../_model/product.model';
 import { map, of, Observable } from 'rxjs';
 import { ProductService } from '../_services/product';
 import { ImageProcessingService } from '../_services/image-processing';

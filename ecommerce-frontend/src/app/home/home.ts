@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ProductService } from '../_services/product';
-import { ProductModel } from '../model/product.model';
+import { ProductModel } from '../_model/product.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import {Router} from '@angular/router';
 

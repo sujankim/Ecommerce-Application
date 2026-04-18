@@ -4,6 +4,7 @@ import com.sujan.ecommerce.model.OrderInput;
 import com.sujan.ecommerce.repository.OrderDetailRepository;
 import com.sujan.ecommerce.service.OrderDetailService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +17,8 @@ public class OrderDetailController {
 
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/placeOrder")
-    public void placeOrder(@RequestBody OrderInput orderInput){
+    public ResponseEntity<String> placeOrder(@RequestBody OrderInput orderInput){
         orderDetailService.placeOrder(orderInput);
+        return ResponseEntity.ok("Order placed");
     }
 }

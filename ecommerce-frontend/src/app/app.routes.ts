@@ -3,6 +3,7 @@ import { Home } from './home/home';
 import { Login } from './login/login';
 import { authGuard } from './_auth/auth-guard';
 import { ProductResolveService } from './_resolver/product-resolve';
+import {BuyProductResolverService} from './_resolver/buy-product-resolver';
 
 export const routes: Routes = [
   { path: '', component: Home },
@@ -65,5 +66,16 @@ export const routes: Routes = [
     },
     loadComponent: () =>
       import('./product-view-details/product-view-details').then(m => m.ProductViewDetails)
+  },
+
+  {
+    path: 'buyProduct',
+    canActivate: [authGuard],
+    data: { roles: ['USER'] },
+    resolve: {
+      productDetails: BuyProductResolverService
+    },
+    loadComponent: () =>
+      import('./buy-product/buy-product').then(m => m.BuyProduct)
   },
 ];

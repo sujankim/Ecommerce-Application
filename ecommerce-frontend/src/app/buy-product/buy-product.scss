@@ -1,0 +1,126 @@
+.buy-product-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2rem 1rem;
+  background: var(--mat-sys-surface);
+  min-height: 100vh;
+}
+
+.buy-product-card {
+  width: 100%;
+  max-width: 600px;
+  background: var(--mat-sys-surface-container-low);
+  border-radius: var(--mat-sys-shape-corner-large);
+  box-shadow: var(--mat-elevation-shadow-2);
+  padding: 2rem;
+
+  @media (max-width: 600px) {
+    padding: 1.5rem;
+    border-radius: var(--mat-sys-shape-corner-medium);
+  }
+}
+
+.form-section {
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--mat-sys-on-surface);
+    margin: 0 0 1rem 0;
+  }
+
+  mat-divider {
+    margin-bottom: 1.5rem;
+  }
+
+  .order-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .full-width {
+      width: 100%;
+    }
+
+    .required {
+      color: var(--mat-sys-error);
+      margin-left: 2px;
+      font-weight: 500;
+    }
+
+    .form-actions {
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: flex-end;
+
+      .submit-btn {
+        min-width: 160px;
+        height: 48px;
+        font-weight: 600;
+        border-radius: var(--mat-sys-shape-corner-medium);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+
+        &:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+
+        mat-spinner {
+          ::ng-deep .mdc-circular-progress__determinate-circle {
+            stroke: var(--mat-sys-on-primary);
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Material Form Field Overrides */
+mat-form-field {
+  .mat-mdc-form-field-infix {
+    padding: 0.75rem 0 !important;
+  }
+
+  .mat-mdc-form-field-label {
+    color: var(--mat-sys-on-surface-variant);
+    font-weight: 500;
+  }
+
+  &.ng-touched.ng-invalid {
+    .mat-mdc-form-field-underline {
+      background-color: var(--mat-sys-error) !important;
+    }
+  }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 480px) {
+  .buy-product-container {
+    padding: 1rem;
+  }
+
+  .buy-product-card {
+    padding: 1.25rem;
+  }
+
+  .form-actions {
+    justify-content: center !important;
+
+    .submit-btn {
+      width: 100%;
+    }
+  }
+}
+
+/* Subtle entrance animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.order-form {
+  animation: fadeIn 0.3s ease-out;
+}
