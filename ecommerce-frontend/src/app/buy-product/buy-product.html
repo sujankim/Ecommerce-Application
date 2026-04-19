@@ -1,89 +1,136 @@
 <div class="buy-product-container">
   <div class="buy-product-card">
 
-    <div class="form-section">
-      <h2 class="section-title">Shipping Details</h2>
-      <mat-divider></mat-divider>
+    <div class="layout">
 
-      <form #orderForm="ngForm" (ngSubmit)="placeOrder(orderForm)" class="order-form">
+      <!-- 🔹 LEFT: FORM -->
+      <section class="form-section">
+        <h2 class="section-title">Shipping Details</h2>
+        <mat-divider></mat-divider>
 
-        <!-- Full Name -->
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Full Name <span class="required">*</span></mat-label>
-          <input matInput
-                 placeholder="John Doe"
-                 [(ngModel)]="orderDetails.fullName"
-                 name="fullName"
-                 required
-                 #fullName="ngModel">
-          @if(fullName.touched && fullName.invalid) {
-            <mat-error>Full name is required</mat-error>
-          }
-        </mat-form-field>
+        <form #orderForm="ngForm"
+              (ngSubmit)="placeOrder(orderForm)"
+              class="order-form">
 
-        <!-- Full Address -->
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Full Address <span class="required">*</span></mat-label>
-          <input matInput
-                 placeholder="123 Main St, City, Country"
-                 [(ngModel)]="orderDetails.fullAddress"
-                 name="fullAddress"
-                 required
-                 #fullAddress="ngModel">
-          @if(fullAddress.touched && fullAddress.invalid) {
-            <mat-error>Address is required</mat-error>
-          }
-        </mat-form-field>
-
-        <!-- Contact Number -->
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Contact Number <span class="required">*</span></mat-label>
-          <input matInput
-                 type="tel"
-                 placeholder="98XXXXXXXX"
-                 [(ngModel)]="orderDetails.contactNumber"
-                 name="contactNumber"
-                 required
-                 pattern="^[0-9]{10}$"
-                 #contact="ngModel">
-          @if(contact.touched && contact.invalid) {
-            <mat-error>Valid 10-digit number required</mat-error>
-          }
-        </mat-form-field>
-
-        <!-- Alternate Contact -->
-        <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Alternate Contact Number</mat-label>
-          <input matInput
-                 type="tel"
-                 placeholder="98XXXXXXXX"
-                 [(ngModel)]="orderDetails.alternateContactNumber"
-                 name="alternateContactNumber"
-                 pattern="^[0-9]{10}$">
-        </mat-form-field>
-
-        <!-- Submit Button -->
-        <div class="form-actions">
-          <!--<button mat-flat-button
-                  type="submit"
-                  class="submit-btn"
-                  [disabled]="orderForm.invalid || isSubmitting">
-            @if(isSubmitting) {
-              <mat-spinner diameter="20"></mat-spinner>
-              Processing...
-            } @else {
-              Place Order
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Full Name <span class="required">*</span></mat-label>
+            <input matInput [(ngModel)]="orderDetails.fullName" name="fullName" required #fullName="ngModel">
+            @if(fullName.touched && fullName.invalid) {
+              <mat-error>Full name is required</mat-error>
             }
-          Place Order
-          </button>-->
-          <button mat-flat-button
-            type="submit"
-            class="submit-btn">
-            Place Order
-          </button>
-        </div>
-      </form>
-    </div>
+          </mat-form-field>
 
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Full Address <span class="required">*</span></mat-label>
+            <input matInput [(ngModel)]="orderDetails.fullAddress" name="fullAddress" required #fullAddress="ngModel">
+            @if(fullAddress.touched && fullAddress.invalid) {
+              <mat-error>Address is required</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Contact Number <span class="required">*</span></mat-label>
+            <input matInput type="tel"
+                   [(ngModel)]="orderDetails.contactNumber"
+                   name="contactNumber"
+                   required pattern="^[0-9]{10}$"
+                   #contact="ngModel">
+            @if(contact.touched && contact.invalid) {
+              <mat-error>Valid 10-digit number required</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Alternate Contact Number</mat-label>
+            <input matInput [(ngModel)]="orderDetails.alternateContactNumber"
+                   name="alternateContactNumber"
+                   pattern="^[0-9]{10}$">
+          </mat-form-field>
+
+          <div class="form-actions">
+            <button mat-flat-button type="submit"
+                    class="submit-btn"
+                    [disabled]="orderForm.invalid || isSubmitting">
+
+              @if(isSubmitting) {
+                <mat-spinner diameter="20"></mat-spinner>
+                Processing...
+              } @else {
+                Place Order
+              }
+
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <!-- 🔹 RIGHT: ORDER SUMMARY TABLE -->
+      <section class="summary-section">
+        <h2 class="section-title">Order Summary</h2>
+        <mat-divider></mat-divider>
+
+        @if(productDetails.length > 0) {
+          <table mat-table [dataSource]="productDetails" class="order-table">
+
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef> Product </th>
+              <td mat-cell *matCellDef="let product"> {{ product.productName }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="price">
+              <th mat-header-cell *matHeaderCellDef> Price </th>
+              <td mat-cell *matCellDef="let product">
+                Rs. {{ product.productDiscountedPrice }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="quantity">
+              <th mat-header-cell *matHeaderCellDef> Qty </th>
+              <td mat-cell *matCellDef="let product">
+                <mat-form-field appearance="outline" class="quantity-select">
+                  <mat-select
+                    [value]="getQuantityForProduct(product.productId)"
+                    (selectionChange)="onQuantityChanged($event.value, product.productId)">
+                    @for(num of [1,2,3,4,5]; track num) {
+                      <mat-option [value]="num">{{ num }}</mat-option>
+                    }
+                  </mat-select>
+                </mat-form-field>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="total">
+              <th mat-header-cell *matHeaderCellDef> Total </th>
+              <td mat-cell *matCellDef="let product" class="total-cell">
+                <strong>
+                  Rs. {{ getCalculatedTotal(product.productId, product.productDiscountedPrice) }}
+                </strong>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+          </table>
+
+          <div class="grand-total">
+            <span>Grand Total:</span>
+            <strong class="total-amount">
+              Rs. {{ getCalculatedGrandTotal() }}
+            </strong>
+          </div>
+
+        } @else {
+          <div class="empty-cart">
+            <mat-icon>shopping_cart</mat-icon>
+            <p>No products in your order</p>
+            <button mat-stroked-button (click)="goBack()">
+              Continue Shopping
+            </button>
+          </div>
+        }
+      </section>
+
+    </div>
   </div>
 </div>
