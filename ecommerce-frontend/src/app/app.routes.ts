@@ -78,4 +78,11 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./buy-product/buy-product').then(m => m.BuyProduct)
   },
+  {
+    path: 'orderConfirm',
+    canActivate: [authGuard],
+    data: { roles: ['USER'] },
+    loadComponent: () =>
+      import('./order-confirmation/order-confirmation').then(m => m.OrderConfirmation)
+  },
 ];

@@ -96,6 +96,7 @@ export class BuyProduct implements OnInit {
         next: () => {
           this.isSubmitting = false;
           form.reset();
+          this.router.navigate(['/orderConfirm']);
         },
         error: () => this.isSubmitting = false
       });
